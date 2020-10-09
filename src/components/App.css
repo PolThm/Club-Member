@@ -1,0 +1,56 @@
+* {
+  font-family: Montserrat, sans-serif;
+  color: #444444;
+}
+
+header {
+  height: 8vh;
+}
+
+.emailField form {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.emailField .divider {
+  max-width: 700px;
+  margin: 2.4rem auto;
+}
+.emailField p {
+  max-width: 280px;
+  margin: 0 auto;
+}
+.emailField .smiley {
+  max-width: 22px;
+}
+.emailField button {
+  background-color: #b37b99;
+  color: white;
+  border: #b37b99 solid 1px;
+  cursor: auto;
+}
+.emailField .buttonActivated {
+  background-color: #802254;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.emailField .buttonActivated:hover {
+  background-color: white;
+  color: #802254;
+}
+
+.results {
+  min-height: 92vh;
+  background-color: #f7f7f7;
+}
+
+@media (min-width: 768px) {
+  .emailField {
+    width: 54.5%;
+  }
+
+  .results {
+    width: 45.5%;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */
