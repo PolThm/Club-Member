@@ -45,9 +45,9 @@ const FormLine = (props: Email) => {
           />
           <p>{props.email}</p>
         </div>
-        <button className={buttonClassName} type="submit" disabled={props.buttonDisabled}>Submit</button>
+        <button className={buttonClassName} type="submit" disabled={props.buttonDisabled} data-testid="button-submit">Submit</button>
       </div>
-      <div className="text-red-500 pl-4 pt-2 absolute">
+      <div className="text-red-500 pl-4 pt-2 absolute" data-testid="input-error">
         {errors.email && errors.email.message}
       </div>
     </form>

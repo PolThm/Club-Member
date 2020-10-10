@@ -31,14 +31,12 @@ export const Provider = (props: PropsWithChildren<{}>) => {
   const {children} = props;
 
   useEffect( () => {
-    // Create an scoped async function in the hook
     const fetchDB = async () => {
       const result = await axios(
         'http://www.json-generator.com/api/json/get/bQrQrLgMEi?indent=2',
       );
       setDataBase(result.data)
     }
-    // Execute the created function directly
     fetchDB();
   }, []);
 
