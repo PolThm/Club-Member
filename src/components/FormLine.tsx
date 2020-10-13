@@ -51,7 +51,6 @@ const FormLine = (props: Email) => {
         {errors.email && errors.email.message}
       </div>
     </form>
-
   );
 };
 

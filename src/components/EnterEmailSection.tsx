@@ -3,17 +3,18 @@ import FormLine from "./FormLine";
 import {useGDCContent} from "../context";
 import ClipLoader from "react-spinners/ClipLoader";
 
+enum Form {
+  form1,
+  form2
+}
+
 const EnterEmailSection = () => {
-  const [activated, setActivated] = useState<string>("form-1");
+  const [activated, setActivated] = useState<Form>(Form.form1);
   const [displayValidEmails, setDisplayValidEmails] = useState<boolean>(false);
   const {dataBase} = useGDCContent();
 
-  const handleForm1Click = () => {
-    setActivated("form-1");
-  };
-
-  const handleForm2Click = () => {
-    setActivated("form-2");
+  const handleFormClick = (formLine: Form) => () => {
+    setActivated(formLine);
   };
 
   let validEmailsSection;
@@ -49,13 +50,13 @@ const EnterEmailSection = () => {
       <div>
         <h2 className="mt-20 text-center text-4xl">Enter your email address</h2>
         <div className="mt-16 mb-24">
-          <FormLine email="@gmail.com" autofocus={true} buttonDisabled={activated !== 'form-1'} onInputClick={handleForm1Click} />
+          <FormLine email="@gmail.com" autofocus={true} buttonDisabled={activated !== Form.form1} onInputClick={handleFormClick(Form.form1)} />
           <div className="divider flex items-center text-gray-500">
             <div className="h-0 border-b border-gray-400 w-1/2 mr-4"/>
             OR
             <div className="h-0 border-b border-gray-400 w-1/2 ml-4"/>
           </div>
-          <FormLine email="@outlook.fr" autofocus={false} buttonDisabled={activated !== 'form-2'} onInputClick={handleForm2Click}/>
+          <FormLine email="@outlook.fr" autofocus={false} buttonDisabled={activated !== Form.form2} onInputClick={handleFormClick(Form.form2)}/>
         </div>
         {validEmailsSection}
       </div>
