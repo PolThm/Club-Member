@@ -1,6 +1,6 @@
-import React from 'react';
-import {GDCContextProvider} from "../context";
-import './App.css';
+import React from "react";
+import { GDCContextProvider } from "../context";
+import "./App.css";
 import Header from "./Header";
 import EnterEmailSection from "./EnterEmailSection";
 import Results from "./Results";
@@ -8,10 +8,10 @@ import Results from "./Results";
 const App = () => {
   return (
     <GDCContextProvider>
-      <Header/>
+      <Header />
       <div className="md:flex">
-        <EnterEmailSection/>
-        <Results/>
+        <EnterEmailSection />
+        <Results />
       </div>
     </GDCContextProvider>
   );

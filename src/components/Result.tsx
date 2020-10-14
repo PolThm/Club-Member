@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 interface Result {
-  member: boolean
-  email: string
+  member: boolean;
+  email: string;
 }
 
 const Result = (props: Result) => {

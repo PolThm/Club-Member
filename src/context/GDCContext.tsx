@@ -1,26 +1,23 @@
-import React, {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
-import axios from 'axios';
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+} from "react";
+import axios from "axios";
+import { LocalDb, useLocalDb } from "./local-db";
 
-interface Member {
-  member: boolean;
-  email: string;
-}
-
-interface Context {
-  // dataBase is an array of emails
-  dataBase: string[],
-  results: Member[],
-  submitEmail: (email: string) => void
-}
+interface Context
+  extends Pick<LocalDb, "dataBase" | "results" | "submitEmail"> {}
 
 const willThrow = () => {
-  throw new Error('Context is not initialized');
-}
+  throw new Error("Context is not initialized");
+};
 
 const defaultValue: Context = {
   dataBase: ["isLoading"],
   results: [],
-  submitEmail: willThrow
+  submitEmail: willThrow,
 };
 
 const Context = createContext(defaultValue);
@@ -28,33 +25,24 @@ const Context = createContext(defaultValue);
 export const useGDCContent = () => useContext(Context);
 
 export const Provider = (props: PropsWithChildren<{}>) => {
-  const {children} = props;
+  const { children } = props;
+  const { setDataBase, dataBase, results, submitEmail } = useLocalDb();
 
-  useEffect( () => {
+  useEffect(() => {
     const fetchDB = async () => {
       const result = await axios(
-        'http://www.json-generator.com/api/json/get/bQrQrLgMEi?indent=2',
+        "http://www.json-generator.com/api/json/get/bQrQrLgMEi?indent=2"
       );
-      setDataBase(result.data)
-    }
+      setDataBase(result.data);
+    };
     fetchDB();
-  }, []);
-
-  // Use State to keep the values
-  const [dataBase, setDataBase] = useState(defaultValue.dataBase);
-  const [results, setResults] = useState(defaultValue.results);
-
-  const submitEmail: Context['submitEmail'] = (email) => {
-    const member = dataBase.includes(email);
-    const newResult = {member, email};
-    setResults((oldResults) => [newResult, ...oldResults]);
-  };
+  }, [setDataBase]);
 
   // Make the context object:
   const GDCContext: Context = {
     dataBase,
     results,
-    submitEmail
+    submitEmail,
   };
 
   // Pass the value in provider and return

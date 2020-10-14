@@ -1,17 +1,28 @@
 import React from 'react'
-import { shallow, configure, mount} from 'enzyme';
+import { configure, mount } from 'enzyme';
+import { FormLineComponent } from "../form-line/component";
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen, fireEvent, act } from '@testing-library/react'
-import {GDCContextProvider, useGDCContent} from "../../context";
-import App from '../App'
-import FormLine from "../FormLine";
+import { render, screen } from '@testing-library/react'
+import Adapter from "enzyme-adapter-react-16";
 
+configure({adapter: new Adapter()});
 
-it('submit button is displayed', () => {
+describe('FormLine', () => {
+  it('shows error', () => {
+    const wrapper = mount(<FormLineComponent email="" autofocus={false} buttonDisabled={false} emailError="This is an error" />);
 
-  render(<FormLine/>)
+    expect(wrapper.contains('This is an error')).toBe(true);
+  });
 
-  // fireEvent.click(screen.getByRole('button',{name: 'Up'}))
+  it('shows error (testing-library)', () => {
+    render(<FormLineComponent email="" autofocus={false} buttonDisabled={false} emailError="This is an error" />);
 
-  expect(screen.getByRole('button', {name: 'Submit'})).toBeInTheDocument()
-})
+    expect(screen.getByText('This is an error')).toBeInTheDocument()
+  });
+
+  it('Always show email as lowercase', () => {
+    render(<FormLineComponent email="foo@BAR.com" autofocus={false} buttonDisabled={false} emailError="This is an error" />);
+
+    expect(screen.getByText('foo@bar.com')).toBeInTheDocument()
+  })
+});

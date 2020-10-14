@@ -1,23 +1,18 @@
-import React from 'react';
+import React from "react";
 import Result from "./Result";
-import {useGDCContent} from "../context";
+import { useGDCContent } from "../context";
 
 const Results = () => {
-  const {results} = useGDCContent();
+  const { results } = useGDCContent();
 
-  let listOfResults =
-    results.map((result, index) => {
-    return (
-      <Result key={index} member={result.member} email={result.email}/>
-    )
+  let listOfResults = results.map((result, index) => {
+    return <Result key={index} member={result.member} email={result.email} />;
   });
 
   return (
     <div className="results px-10">
       <h2 className="pt-20 pb-16 text-center text-4xl">Results</h2>
-      <div className="pb-16">
-        {listOfResults}
-      </div>
+      <div className="pb-16">{listOfResults}</div>
     </div>
   );
 };
