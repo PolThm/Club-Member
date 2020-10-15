@@ -66,7 +66,7 @@ const EnterEmailSection = () => {
         <h2 className="mt-20 text-center text-4xl">Enter your email address</h2>
         <div className="mt-16 mb-24">
           <FormLine
-            email="@gmail.com"
+            emailDomain="@gmail.com"
             autofocus={true}
             buttonDisabled={activated !== Form.form1}
             onInputClick={handleFormClick(Form.form1)}
@@ -77,7 +77,7 @@ const EnterEmailSection = () => {
             <div className="h-0 border-b border-gray-400 w-1/2 ml-4" />
           </div>
           <FormLine
-            email="@outlook.fr"
+            emailDomain="@outlook.fr"
             autofocus={false}
             buttonDisabled={activated !== Form.form2}
             onInputClick={handleFormClick(Form.form2)}

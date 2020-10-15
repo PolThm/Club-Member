@@ -3,7 +3,7 @@ import React, { forwardRef, HTMLProps } from "react";
 export interface Props {
   onSubmit?: HTMLProps<HTMLFormElement>["onSubmit"];
   onInputClick?: () => void;
-  email: string;
+  emailDomain: string;
   autofocus: boolean;
   buttonDisabled: boolean;
   emailError: string;
@@ -11,7 +11,7 @@ export interface Props {
 
 export const FormLineComponent = forwardRef<HTMLInputElement, Props>(
   (
-    { onSubmit, email, autofocus, buttonDisabled, onInputClick, emailError },
+    { onSubmit, emailDomain, autofocus, buttonDisabled, onInputClick, emailError },
     ref
   ) => {
     let buttonClassName =
@@ -32,7 +32,7 @@ export const FormLineComponent = forwardRef<HTMLInputElement, Props>(
               onClick={onInputClick}
               ref={ref}
             />
-            <p>{email.toLowerCase()}</p>
+            <p>{emailDomain.toLowerCase()}</p>
           </div>
           <button
             className={buttonClassName}

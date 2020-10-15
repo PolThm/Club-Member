@@ -15,8 +15,8 @@ export interface LocalDb {
 
 export function useLocalDb(): LocalDb {
   // Use State to keep the values
-  const [dataBase, setDataBase] = useState<LocalDb['dataBase']>(['isLoading']);
-  const [results, setResults] = useState<LocalDb['results']>([]);
+  const [dataBase, setDataBase] = useState<LocalDb["dataBase"]>(["isLoading"]);
+  const [results, setResults] = useState<LocalDb["results"]>([]);
 
   const submitEmail: LocalDb["submitEmail"] = (email) => {
     const member = dataBase.includes(email);
@@ -28,6 +28,6 @@ export function useLocalDb(): LocalDb {
     setDataBase,
     dataBase,
     results,
-    submitEmail
-  }
+    submitEmail,
+  };
 }

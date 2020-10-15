@@ -4,7 +4,7 @@ import { useGDCContent } from "../../context";
 import { FormLineComponent } from "./component";
 
 interface Props {
-  email: string;
+  emailDomain: string;
   autofocus: boolean;
   buttonDisabled: boolean;
   onInputClick: () => void;
@@ -15,8 +15,8 @@ const FormLine = (props: Props) => {
 
   const { handleSubmit, register, errors } = useForm();
   const onSubmit = (values: any, e: any) => {
-    const emailAddress = values.email + props.email;
-    submitEmail(emailAddress.toLowerCase());
+    const emailAddress = values.email + props.emailDomain;
+    submitEmail(emailAddress);
     e.target.reset();
   };
 

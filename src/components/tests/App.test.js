@@ -1,90 +1,61 @@
-import React from 'react'
-import Adapter from 'enzyme-adapter-react-16';
-import { configure } from 'enzyme';
-import '@testing-library/jest-dom/extend-expect';
+import React from "react";
+import "@testing-library/jest-dom/extend-expect";
+import { render, screen } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { FormLineComponent } from "../form-line/component";
+import { useLocalDb } from "../../context/local-db";
 
-configure({adapter: new Adapter()});
+describe("FormLine", () => {
+  it("shows error", () => {
+    render(
+      <FormLineComponent
+        emailDomain="@gmail.com"
+        autofocus={false}
+        buttonDisabled={false}
+        emailError="This is an error"
+      />
+    );
 
-describe('Nothing', () => {
-  xit('Nothing', () => {
+    expect(screen.getByText("This is an error")).toBeInTheDocument();
+  });
 
+  it("always show email domain as lowercase", () => {
+    render(
+      <FormLineComponent
+        emailDomain="@outLOOK.fr"
+        autofocus={false}
+        buttonDisabled={false}
+        emailError="This is an error"
+      />
+    );
+
+    expect(screen.getByText("@outlook.fr")).toBeInTheDocument();
   });
 });
 
 
-// describe('FormLine', () => {
-  // it('contains the correct number of components', (done) => {
-  //   const wrapper = mount(<FormLine />);
-  //
-  //   //This is not working - the length of ChildComponent is always 0
-  //   // expect(wrapper.find(ChildComponent).length).to.equal(status.length);
-  //   expect(wrapper.find('button')).toBeInTheDocument()
-  // });
+describe("function submitEmail", () => {
+  it("'results' state should contain the email submitted and 'member' is false", () => {
+    const { result } = renderHook(() => useLocalDb());
 
+    act(() => {
+      result.current.submitEmail('fred@outlook.fr');
+    });
 
-  // it('submit button is displayed', () => {
-  //
-  //   render(<FormLine/>)
-  //
-  //   // fireEvent.click(screen.getByRole('button',{name: 'Up'}))
-  //
-  //   expect(screen.getByRole('button', {name: 'Submit'})).toBeInTheDocument()
-  // })
+    expect(result.current.results).toContainEqual({"email": "fred@outlook.fr", "member": false});
+  });
 
-//   it('snapshot test', () => {
-//     const setRouteLeaveHook = jest.fn();
-//     let wrapper = shallow(
-//       <FormLine params={{id : 25, router: setRouteLeaveHook}}/>
-//     );
-//     expect(toJson(wrapper)).toMatchSnapshot();
-//   })
-// })
+  it("'results' state should contain the email submitted and 'member' is true", () => {
+    const { result } = renderHook(() => useLocalDb());
 
+    act(() => {
+      result.current.setDataBase(['nicolas@outlook.fr']);
+    });
 
-// global.fetch = jest.fn(() =>
-//   Promise.resolve({
-//     json: () =>
-//       Promise.resolve(
-//         ["nicolas@outlook.fr", "celine@outlook.fr", "kevin@gmail.com", "sylvie@gmail.com"]
-//       )
-//   })
-// )
-//
-// describe('FetchDB', () => {
-//   it ('loads FormLine on mount', async () => {
-//     await act(async () => render(<App />));
-//
-//     const submitButton = await screen.getByRole('button', {name: 'Submit'})
-//     expect(submitButton).toBeInTheDocument()
-//   });
-// });
+    act(() => {
+      result.current.submitEmail('nicolas@outlook.fr');
+    });
 
-
-// const renderWithContext = (
-//   component) => {
-//   return {
-//     ...render(
-//       <GDCContextProvider>
-//         {component}
-//       </GDCContextProvider>
-//     )
-//   }
-// }
-//
-// describe('FormLine', () => {
-//   it('submit button is displayed', async () => {
-//     renderWithContext(<App />)
-//
-//     // fireEvent.click(screen.getByRole('button',{name: 'Up'}))
-//
-//     const submitButton = await screen.getByRole('button', {name: 'Submit'})
-//
-//     expect(submitButton).toBeInTheDocument()
-//   })
-//
-//   it('send an error when you click on the submit button and the input is empty', () => {
-//     render(<App />)
-//     fireEvent.click(screen.getByTestId('button-submit'))
-//     expect(screen.getByTestId('input-error')).toHaveTextContent("Email required")
-//   })
-// });
+    expect(result.current.results).toContainEqual({"email": "nicolas@outlook.fr", "member": true});
+  });
+});

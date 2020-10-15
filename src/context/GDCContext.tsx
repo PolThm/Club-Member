@@ -25,7 +25,6 @@ const Context = createContext(defaultValue);
 export const useGDCContent = () => useContext(Context);
 
 export const Provider = (props: PropsWithChildren<{}>) => {
-  const { children } = props;
   const { setDataBase, dataBase, results, submitEmail } = useLocalDb();
 
   useEffect(() => {
@@ -46,5 +45,7 @@ export const Provider = (props: PropsWithChildren<{}>) => {
   };
 
   // Pass the value in provider and return
-  return <Context.Provider value={GDCContext}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={GDCContext}>{props.children}</Context.Provider>
+  );
 };
