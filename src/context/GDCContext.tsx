@@ -30,7 +30,7 @@ export const Provider = (props: PropsWithChildren<{}>) => {
   useEffect(() => {
     const fetchDB = async () => {
       const result = await axios(
-        "http://www.json-generator.com/api/json/get/bQrQrLgMEi?indent=2"
+        "https://www.json-generator.com/api/json/get/bQrQrLgMEi?indent=2"
       );
       setDataBase(result.data);
     };
