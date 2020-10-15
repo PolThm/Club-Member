@@ -1,3 +1,18 @@
+Link to the project: https://club-member.pol-thomas.com/
+
+Main technologies used for the project:
+
+- React JS
+- TypeScript
+- Hooks
+- Context
+- Axios
+- Tailwind CSS
+- Jest
+- React Testing Library
+
+--------------------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
